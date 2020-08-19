@@ -281,8 +281,8 @@ input_frame = LabelFrame(main_frame, text="Enter your place or pincode and hit e
 input_frame.grid(row=1, column=0, pady=5)
 
 # City entry
-city_lbl = Label(input_frame, text="Enter City", font=('Segoe Print',12), background='#6666ff')
-city_lbl.pack(pady=5, side=LEFT)
+city_lbl = Label(input_frame, text="Place", font=('Segoe Print',12), background='#6666ff')
+city_lbl.pack(padx=(50,10),pady=5, side=LEFT)
 
 city_entry = Entry(input_frame)
 # city_entry.insert(0, 'e.g. Allahabad')			# Placeholder
@@ -291,13 +291,13 @@ city_entry.pack(side=LEFT)
 city_entry.focus()
 
 # Pincode entry
-pincode_lbl = Label(input_frame, text="Enter Pincode", font=('Segoe Print',12), background='#6666ff')
-pincode_lbl.pack(padx=(20,0), pady=5, side=LEFT)
+pincode_lbl = Label(input_frame, text="Pincode", font=('Segoe Print',12), background='#6666ff')
+pincode_lbl.pack(padx=(40,0), pady=5, side=LEFT)
 
 pincode_entry = Entry(input_frame, state="disabled")
 # pincode_entry.insert(0,'e.g. 110005')			# Placeholder
 # pincode_entry.bind("<Button>",passText)			# Disappear placeholder on click
-pincode_entry.pack(padx=(0,5), side=LEFT)
+pincode_entry.pack(padx=(0,50), side=LEFT)
 
 # Fetch data button
 click_here=PhotoImage(file='multimedia/button.png')
