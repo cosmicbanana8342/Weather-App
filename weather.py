@@ -50,7 +50,9 @@ def passText(event):
 	pincode_entry.delete(0, END)
 	passcheck=True
 
-
+# Function to call fetch_data function when enter key is pressed
+def callback(event):
+	fetch_data()
 
 def fetch_data():
 	global icon_url
@@ -102,7 +104,7 @@ def fetch_data():
 
 			# Create canvas and set the background image according to time
 			canvas = Canvas(root, width = 615, height = 300)  
-			canvas.pack()
+			canvas.pack(pady=15)
 			if (cur_time>sunrise and cur_time<sunset):
 				bg = ImageTk.PhotoImage(Image.open("multimedia/day2.png"))
 			else:
@@ -195,7 +197,7 @@ def fetch_data():
 
 			# Create canvas and set the background image according to time
 			canvas = Canvas(root, width = 615, height = 300)  
-			canvas.pack()
+			canvas.pack(pady=15)
 			if (cur_time>sunrise and cur_time<sunset):
 				bg = ImageTk.PhotoImage(Image.open("multimedia/day2.png"))
 			else:
@@ -257,7 +259,7 @@ def fetch_data():
 
 # Main Frame
 main_frame = Frame(root, background='#6666ff')
-main_frame.pack(pady=(70,5))
+main_frame.pack(pady=(60,5))
 
 
 # Radiobuttons
@@ -267,7 +269,7 @@ radio_frame.grid(row=0, column=0, padx=50)
 var = IntVar(root,"1")
 
 # City name radiobutton
-city_radio = Radiobutton(radio_frame, text="City", variable=var, value=1, indicator=0, background = "#33d6ff", font=('calibre',10), command=city_enable)
+city_radio = Radiobutton(radio_frame, text="Place", variable=var, value=1, indicator=0, background = "#33d6ff", font=('calibre',10), command=city_enable)
 city_radio.pack(padx=10, pady=10, ipadx=50, side = LEFT, expand = True, fill = BOTH)
 
 # Pincode radiobutton
@@ -275,7 +277,7 @@ pincode_radio = Radiobutton(radio_frame, text="Pincode", variable=var, value=2, 
 pincode_radio.pack(padx=10, pady=10, ipadx=50, side = LEFT, expand = True, fill = BOTH)
 
 # Entry frame
-input_frame = LabelFrame(main_frame, text="Enter your city or pincode", background='#6666ff', font=('Hobo Std',12))
+input_frame = LabelFrame(main_frame, text="Enter your place or pincode and hit enter", background='#6666ff', font=('Hobo Std',12))
 input_frame.grid(row=1, column=0, pady=5)
 
 # City entry
@@ -302,5 +304,6 @@ click_here=PhotoImage(file='multimedia/button.png')
 styled_button=Button(root,image=click_here,command=fetch_data, borderwidth=0)
 styled_button.config(highlightbackground='#6666ff', highlightthickness=0)
 styled_button.pack()
+root.bind('<Return>',callback)
 
 root.mainloop()
