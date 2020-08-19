@@ -20,6 +20,10 @@ root.configure(background='#6666ff')
 # Making main_frame global so that it can be used by each function
 global main_frame
 
+'''Variable which decides whether it is initial search or a new search, it will 
+further decide whether to create a new canvas or edit the existing one'''
+flag = 0
+
 # Callbacks for radiobuttons
 def pin_enable():
 	pincode_entry.config(state="normal")
@@ -53,6 +57,8 @@ def fetch_data():
 	global bg
 	global photo_icon
 	global photo_weather
+	global flag
+	global canvas
 
 	if (var.get()==1):
 		city = city_entry.get()
@@ -89,6 +95,10 @@ def fetch_data():
 			# print("cur_time:", cur_time)
 			# print("icon_id", icon_id)
 			# print("icon_url", icon_url)
+
+			# Clearing canvas for new data
+			if (flag == 1):
+				canvas.destroy()
 
 			# Create canvas and set the background image according to time
 			canvas = Canvas(root, width = 615, height = 300)  
@@ -145,6 +155,8 @@ def fetch_data():
 				# Outer rectangle
 				canvas.create_rectangle(175,80,435,190, outline="white")
 
+			flag = 1
+
 		except:
 			messagebox.showinfo('Something went wrong!', 'Make sure you entered valid data and have a stable internet connection')
 		
@@ -176,6 +188,10 @@ def fetch_data():
 
 			city = api_1['results'][0]['components']['state_district']
 			country = api_1['results'][0]['components']['country']
+
+			# Clearing canvas for new data
+			if (flag == 1):
+				canvas.destroy()
 
 			# Create canvas and set the background image according to time
 			canvas = Canvas(root, width = 615, height = 300)  
@@ -231,6 +247,8 @@ def fetch_data():
 				canvas.create_text(295,113, anchor=NW, text=str(int(temp))+"°C",font=('Helvetica',27,'bold'), fill="white")
 				# Outer rectangle
 				canvas.create_rectangle(175,80,435,190, outline="white")
+
+			flag = 1
 
 		except:
 			messagebox.showinfo('Something went wrong!', 'Make sure you entered valid data and have a stable internet connection')
