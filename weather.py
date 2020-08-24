@@ -8,6 +8,7 @@ from tkinter import messagebox
 import io
 import base64
 from urllib.request import urlopen
+import os
 
 root = Tk()
 root.title('Simple Weather App')
@@ -19,6 +20,13 @@ root.configure(background='#6666ff')
 
 # Making main_frame global so that it can be used by each function
 global main_frame
+
+# API keys
+global opencage
+global openweather
+
+opencage = os.environ.get('OPENCAGE_API_KEY')
+openweather = os.environ.get('OPENWEATHERMAP_API_KEY')
 
 '''Variable which decides whether it is initial search or a new search, it will 
 further decide whether to create a new canvas or edit the existing one'''
@@ -65,7 +73,7 @@ def fetch_data():
 	if (var.get()==1):
 		city = city_entry.get()
 		try:
-			api_request_1 = requests.get("https://api.opencagedata.com/geocode/v1/google-v3-json?address="+city+"&key=b3970ffbe4114688a43efd5cf96736c2")
+			api_request_1 = requests.get("https://api.opencagedata.com/geocode/v1/google-v3-json?address="+city+"&key="+opencage)
 			api_1 = json.loads(api_request_1.content)
 			
 			
@@ -77,7 +85,7 @@ def fetch_data():
 			x = dt.datetime.now()
 			date_time = x.strftime("%a, %d %B %I:%M %p")
 
-			url = "http://api.openweathermap.org/data/2.5/weather?lat="+str(lat)+"&lon="+str(lng)+"&appid=9a46b1b95df36905735d9e5e0bd322c2&units=metric"
+			url = "http://api.openweathermap.org/data/2.5/weather?lat="+str(lat)+"&lon="+str(lng)+"&appid="+openweather+"&units=metric"
 			# print(url)
 			api_request_2 = requests.get(url)
 			api_2 = json.loads(api_request_2.content)
@@ -165,7 +173,7 @@ def fetch_data():
 	if (var.get()==2):
 		pincode = pincode_entry.get()
 		try:
-			url = "http://api.openweathermap.org/data/2.5/weather?zip="+pincode+",in&appid=9a46b1b95df36905735d9e5e0bd322c2&units=metric"
+			url = "http://api.openweathermap.org/data/2.5/weather?zip="+pincode+",in&appid="+openweather+"&units=metric"
 			# print(url)
 			api_request_2 = requests.get(url)
 			api_2 = json.loads(api_request_2.content)
@@ -185,7 +193,7 @@ def fetch_data():
 			x = dt.datetime.now()
 			date_time = x.strftime("%a, %d %B %I:%M %p")
 
-			api_request_1 = requests.get("https://api.opencagedata.com/geocode/v1/json?q="+str(lat)+"+"+str(lng)+"&key=b3970ffbe4114688a43efd5cf96736c2")
+			api_request_1 = requests.get("https://api.opencagedata.com/geocode/v1/json?q="+str(lat)+"+"+str(lng)+"&key="+opencage)
 			api_1 = json.loads(api_request_1.content)
 
 			city = api_1['results'][0]['components']['state_district']
